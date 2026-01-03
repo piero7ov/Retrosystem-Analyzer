@@ -206,5 +206,3 @@ Retrosystem-Analyzer/
 ## 👤 Autor
 
 **Piero Olivares**
-::contentReference[oaicite:0]{index=0}
-```
