@@ -194,15 +194,6 @@ Retrosystem-Analyzer/
 
 ---
 
-## 🛣️ Ideas de mejora (roadmap)
-
-* Exportar reportes en PDF (botón ya preparado)
-* Configuración por archivo `.env` o `config.json`
-* Más métricas (temperatura, procesos top, uptime)
-* Autoinicio como servicio (systemd en Linux / tarea programada en Windows)
-
----
-
 ## 👤 Autor
 
 **Piero Olivares**
