@@ -1,0 +1,298 @@
+/* =========================================================
+   RetroSystem Analyzer - Estilos retro suaves
+   ========================================================= */
+
+/* 1) Tipografía y base
+   - Reseteo de box model y márgenes.
+   - Fuente monoespaciada para look terminal.
+   - Fondo gris oscuro y texto verde suave. */
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Ubuntu Mono', monospace;
+  background: #1a1a1a;       /* gris oscuro */
+  color: #00ff99;            /* verde neón más suave */
+  min-height: 100vh;         /* asegura cubrir toda la altura de la ventana */
+}
+
+/* 2) Header
+   - Barra fija arriba con sombra sutil verde.
+   - Contiene logotipo y nombre de la app. */
+.header {
+  background: #222;          /* gris carbón */
+  border-bottom: 2px solid #00ff99;
+  width: 100%;
+  padding: 0px 30px;         /* espacio horizontal; altura viene de min-height */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;           /* fijo en la parte superior */
+  top: 0;
+  left: 0;
+  z-index: 100;              /* por encima del contenido */
+  min-height: 65px;
+  box-shadow: 0 2px 10px rgba(0,255,153,0.15);
+}
+
+.header .app-name {
+  font-size: 1.6rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  color: #00ff99;
+  text-shadow: 0 0 5px #00ff99; /* brillo ligero */
+}
+
+.header .app-name img {
+  height: 80px;
+  width: 80px;
+  margin-right: 12px;        /* separación del texto */
+  filter: brightness(1.3) contrast(1.1); /* realce del logo */
+}
+
+/* 3) Sidebar (navegación)
+   - Columna fija a la izquierda bajo el header.
+   - Borde y sombra interior para efecto retro. */
+.sidebar {
+  width: 240px;
+  background: #2b2b2b;
+  padding: 20px;
+  border-right: 2px solid #00ff99;
+  position: fixed;
+  top: 70px;                 /* deja espacio del header */
+  bottom: 0;
+  overflow-y: auto;          /* scroll si el menú crece */
+  box-shadow: inset -2px 0 5px rgba(0,255,153,0.15);
+}
+
+.sidebar h3 {
+  margin-bottom: 20px;
+  color: #00ff99;
+  font-size: 1.2rem;
+  text-shadow: 0 0 4px #00ff99;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px 16px;
+  margin: 8px 0;
+  color: #00ff99;
+  text-decoration: none;
+  border-radius: 4px;
+  border: 1px dashed #00ff99;   
+  background: #1f1f1f;
+  transition: background .25s, color .25s, transform .2s;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background: #00ff99;
+  color: #1a1a1a;
+  transform: translateX(4px);    /* pequeño desplazamiento al activar/hover */
+}
+
+/* 4) Contenido principal
+   - Deja margen para no quedar bajo header y sidebar.
+   - Área scroll principal. */
+.content {
+  flex: 1;
+  padding: 25px;
+  overflow-y: auto;
+  margin-top: 70px;          /* altura del header */
+  margin-left: 260px;        /* ancho del sidebar + margen */
+}
+
+/* 5) Dashboard con grid
+   - Rejilla fluida que se adapta a la anchura del viewport.
+   - Mínimo 320px por tarjeta. */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+/* 6) Tarjetas (stats, alertas, imágenes)
+   - Paneles con borde verde y sombra leve.
+   - Animación sutil al hover para dar vida. */
+.stats-card,
+.alert-card,
+.image-card {
+  background: #242424;
+  border: 2px solid #00ff99;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 12px rgba(0,255,153,0.1);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.stats-card:hover,
+.image-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0,255,153,0.3);
+}
+
+.stats-card h3,
+.alert-card h3 {
+  color: #00ff99;
+  margin-bottom: 15px;
+  text-shadow: 0 0 4px #00ff99;
+}
+
+.stats-card ul,
+.alert-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.stats-card li,
+.alert-card li {
+  margin-bottom: 8px;
+  color: #b8ffdd;           
+}
+
+/* 7) Imágenes de gráficas
+   - Contenedor clicable para abrir modal.
+   - Borde punteado retro y realce de imagen. */
+.image-card {
+  cursor: pointer;
+  text-align: center;
+  background: #2b2b2b;
+}
+
+.image-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px dashed #00ff99;
+  filter: brightness(1.2) contrast(1.2);
+}
+
+/* 8) Modal centrado
+   - Fondo semitransparente con blur sutil.
+   - Imagen centrada con límites de tamaño. */
+.modal {
+  display: none;                 /* se muestra como flex desde JS */
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  background: rgba(26,26,26,0.95);
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(3px);
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 85%;
+  border-radius: 10px;
+  border: 2px solid #00ff99;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(0,255,153,0.4);
+}
+
+/* Botón de cierre del modal (X) */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  color: #00ff99;
+  font-size: 36px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all .2s;
+  text-shadow: 0 0 5px #00ff99;
+}
+.close:hover {
+  color: #1a1a1a;
+  background: #00ff99;
+  border-radius: 5px;
+  padding: 2px 6px;
+}
+
+/* 9) Toast de alerta (esquina inferior derecha)
+   - Se muestra/oculta vía JS.
+   - Animación pulse para llamar la atención. */
+.alert-toast {
+  display: none;                /* el JS lo pondrá en display:flex */
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #00ff99;
+  color: #1a1a1a;
+  padding: 12px 18px;
+  border: 1px solid #00ff99;
+  border-radius: 6px;
+  font-weight: bold;
+  z-index: 10000;
+  animation: pulse 1.2s infinite alternate;
+  box-shadow: 0 0 15px rgba(0,255,153,0.4);
+}
+
+/* Botón ✕ del toast */
+.alert-toast button {
+  background: none;
+  border: none;
+  color: #1a1a1a;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 5px;
+}
+.alert-toast button:hover {
+  color: #333;
+}
+
+/* Animación de pulso para el toast */
+@keyframes pulse {
+  from { opacity: 1; }
+  to { opacity: .7; }
+}
+
+/* 10) Botones reutilizables (descargas, acciones)
+   - Borde punteado retro, hover con inversión de colores. */
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #2b2b2b;
+  color: #00ff99;
+  border: 1px dashed #00ff99;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .2s, color .2s, transform .15s;
+  margin-top: .5rem;
+}
+
+.btn-download:hover {
+  background: #00ff99;
+  color: #1a1a1a;
+  transform: scale(1.05);
+}
+
+/* 11) Responsive
+   - Ajustes para tablets y móviles (sidebar y content). */
+@media (max-width: 768px) {
+  .sidebar { width: 200px; }
+  .content { margin-left: 220px; }
+}
+@media (max-width: 576px) {
+  .sidebar { display: none; }  /* oculta sidebar en móviles */
+  .content { margin-left: 0; } /* contenido a pantalla completa */
+  .header { flex-direction: column; align-items: flex-start; }
+}
+
+/* 12) Pequeños efectos utilitarios */
+a:hover, button:hover { text-shadow: 0 0 6px #00ff99; }
+code { color: #00ff99; background: #1f1f1f; padding: 2px 6px; border-radius: 3px; }
+

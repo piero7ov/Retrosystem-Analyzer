@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>RetroSystem Analyzer</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="logo/logo2.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Toast de alertas -->
+  <div id="alertToast" class="alert-toast" style="display:none;"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="app-name">
+      <img src="logo/logo2.png" alt="logo"
+           onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg'">
+      RetroSystem Analyzer
+    </div>
+  </header>
+
+  <!-- Sidebar (links internos con hash, no sacan de la página) -->
+  <aside class="sidebar">
+    <h3>Menú</h3>
+    <a data-type="hourly" class="active" href="#hourly">Última Hora</a>
+    <a data-type="alertas" href="#alertas">Alertas</a>
+    <a data-type="comparativa" href="#comparativa">Comparativas</a>
+    <a data-type="reportes" href="#reportes">Reportes</a>
+  </aside>
+
+  <!-- Contenido principal -->
+  <main class="content">
+    <!-- Última hora -->
+    <section id="view-hourly" class="dashboard">
+      <div class="stats-card">
+        <h3>📊 Estadísticas Última Hora</h3>
+        <ul id="estadisticasList">
+          <li>Esperando datos… ejecuta <code>monitor_plot.py</code>.</li>
+        </ul>
+      </div>
+
+      <div class="image-card" onclick="openModal('plots/cpu.png')">
+        <img src="plots/cpu.png" alt="CPU (%)">
+      </div>
+      <div class="image-card" onclick="openModal('plots/mem.png')">
+        <img src="plots/mem.png" alt="Memoria (%)">
+      </div>
+      <div class="image-card" onclick="openModal('plots/disk.png')">
+        <img src="plots/disk.png" alt="Disco (%)">
+      </div>
+      <div class="image-card" onclick="openModal('plots/net.png')">
+        <img src="plots/net.png" alt="Red (KB/s)">
+      </div>
+    </section>
+
+    <!-- Alertas -->
+    <section id="view-alertas" class="dashboard" style="display:none;">
+      <div class="alert-card">
+        <h3>⚠️ Alertas recientes</h3>
+        <ul id="alertasList">
+          <li>Sin alertas recientes.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Comparativas -->
+    <section id="view-comparativa" class="dashboard" style="display:none;">
+      <div class="stats-card">
+        <h3>📈 Comparativa CPU vs RAM vs Disco</h3>
+        <div class="image-card" onclick="openModal('plots/comparativa_cpu_ram_disco.png')" style="max-width:700px;margin:10px auto;">
+          <img src="plots/comparativa_cpu_ram_disco.png" alt="Comparativa CPU/RAM/Disco"
+               onerror="this.parentElement.innerHTML='<p>No hay gráfica CPU/RAM/Disco aún.</p>'">
+        </div>
+      </div>
+
+      <div class="stats-card">
+        <h3>📶 Comparativa Red (Subida vs Descarga)</h3>
+        <div class="image-card" onclick="openModal('plots/comparativa_red.png')" style="max-width:700px;margin:10px auto;">
+          <img src="plots/comparativa_red.png" alt="Comparativa Red"
+               onerror="this.parentElement.innerHTML='<p>No hay gráfica de red aún.</p>'">
+        </div>
+      </div>
+    </section>
+
+    <!-- Reportes -->
+    <section id="view-reportes" class="dashboard" style="display:none;">
+      <div class="stats-card">
+        <h3>📥 Descarga Reportes</h3>
+        <p>Pulsa para descargar si existen:</p>
+        <button class="btn-download" onclick="downloadIfExists('data/stats.csv')">CSV</button>
+        <button class="btn-download" onclick="downloadIfExists('data/stats_summary.json')">JSON</button>
+        <button class="btn-download" onclick="downloadIfExists('reports/report.pdf')">PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal centrado -->
+  <div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImage" class="modal-content" alt="">
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
+
