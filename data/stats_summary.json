@@ -1,16 +1,16 @@
 {
   "ok": true,
-  "last_time": "2025-11-13 20:36:27",
+  "last_time": "2026-01-27 16:12:39",
   "last": {
-    "cpu_percent": 10.7,
-    "mem_percent": 52.92673461544221,
-    "disk_percent": 23.228735366443175,
-    "net_kb_s": 0.0
+    "cpu_percent": 24.8,
+    "mem_percent": 71.65826178937787,
+    "disk_percent": 81.10031388399193,
+    "net_kb_s": 484.46999999999997
   },
   "avg": {
-    "cpu_percent": 10.371428571428572,
-    "mem_percent": 57.959387344455045,
-    "net_kb_s": 3.6261904761904766
+    "cpu_percent": 16.598113207547172,
+    "mem_percent": 65.85032087122366,
+    "net_kb_s": 304.84641509433965
   },
-  "samples": 21
+  "samples": 53
 }
